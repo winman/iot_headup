@@ -3,6 +3,9 @@
 //头文件
 #include "stm32f10x.h"
 #include "GPIOLIKE51.h"
+#include "usart1.h"
+#include "delay.h"
+#include "string.h"
 
 //函数声明
 void GPIO_Configuration(void);
@@ -28,7 +31,11 @@ void Delay(uint32_t nCount)
 //=============================================================================
 int main(void)
 {
+	char* msg="usart 1 sending...\r\n";
 	  GPIO_Configuration();
+	  delay_init();
+	  USART1_Init(); //debug for the uvart only, remove after then
+
     while (1)
 	{
 		PCout(13)=1;
@@ -37,6 +44,7 @@ int main(void)
 //		Delay(0xfffff);
 //		Delay(0xfffff);
 		PCout(13)=0;
+		usart1_write(USART1, msg, strlen(msg));
 		Delay(0xfffff);
 //		Delay(0xfffff);
 //		Delay(0xfffff);
