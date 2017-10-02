@@ -35,7 +35,9 @@ int main(void)
 	  GPIO_Configuration();
 	  delay_init();
 	  USART1_Init(); //debug for the uvart only, remove after then
-
+	// vuart init
+    VUART_IOConfig();
+    VUART_TIM4_Int_Init(107, 71);     //1M¼ÆÊýÆµÂÊ
     while (1)
 	{
 		PCout(13)=1;
@@ -45,6 +47,7 @@ int main(void)
 //		Delay(0xfffff);
 		PCout(13)=0;
 		usart1_write(USART1, msg, strlen(msg));
+	    serialprintf("vuart is ready...\r\n");
 		Delay(0xfffff);
 //		Delay(0xfffff);
 //		Delay(0xfffff);
